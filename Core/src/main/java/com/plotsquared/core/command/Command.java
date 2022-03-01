@@ -37,6 +37,7 @@ import com.plotsquared.core.util.StringComparison;
 import com.plotsquared.core.util.StringMan;
 import com.plotsquared.core.util.task.RunnableVal2;
 import com.plotsquared.core.util.task.RunnableVal3;
+import me.totalfreedom.plotsquared.PlotSquaredHandler;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.kyori.adventure.text.minimessage.Template;
 import org.checkerframework.checker.nullness.qual.Nullable;
@@ -62,6 +63,7 @@ public abstract class Command {
     private final ArrayList<Command> allCommands = new ArrayList<>();
     private final ArrayList<Command> dynamicCommands = new ArrayList<>();
     private final HashMap<String, Command> staticCommands = new HashMap<>();
+    private final PlotSquaredHandler plotSquaredHandler = new PlotSquaredHandler();
 
     // Parent command (may be null)
     private final Command parent;
@@ -168,7 +170,7 @@ public abstract class Command {
     }
 
     public boolean hasConfirmation(PermissionHolder player) {
-        return this.confirmation && !player.hasPermission(getPermission() + ".confirm.bypass");
+        return this.confirmation && !plotSquaredHandler.isAdmin(player)/*!player.hasPermission(getPermission() + ".confirm.bypass")*/;
     }
 
     public List<String> getAliases() {

@@ -4,6 +4,9 @@ dependencies {
     // Expected everywhere.
     compileOnlyApi(libs.checkerqual)
 
+    // Paper
+    compileOnly(libs.paper)
+
     // Minecraft expectations
     compileOnlyApi(libs.gson)
     compileOnly(libs.guava)
@@ -33,6 +36,8 @@ dependencies {
     testImplementation(libs.worldeditCore)
     compileOnly(libs.fastasyncworldeditCore) { isTransitive = false }
     testImplementation(libs.fastasyncworldeditCore) { isTransitive = false }
+
+    compileOnly(libs.totalfreedommod)
 
     // Logging
     compileOnlyApi(libs.log4j)

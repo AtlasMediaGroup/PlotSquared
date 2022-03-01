@@ -30,6 +30,7 @@ import com.plotsquared.core.configuration.caption.TranslatableCaption;
 import com.plotsquared.core.permissions.Permission;
 import com.plotsquared.core.permissions.PermissionHolder;
 import com.plotsquared.core.player.PlotPlayer;
+import me.totalfreedom.plotsquared.PlotSquaredHandler;
 import net.kyori.adventure.text.minimessage.Template;
 import org.checkerframework.checker.nullness.qual.NonNull;
 
@@ -39,6 +40,8 @@ import org.checkerframework.checker.nullness.qual.NonNull;
  * - Checking the PlotPlayer class directly will not take the above into account<br>
  */
 public class Permissions {
+
+    public static PlotSquaredHandler plotSquaredHandler = new PlotSquaredHandler();
 
     public static boolean hasPermission(PlotPlayer<?> player, Permission permission, boolean notify) {
         return hasPermission(player, permission.toString(), notify);
@@ -52,7 +55,7 @@ public class Permissions {
      * @return {@code true} if the owner has the given permission, else {@code false}
      */
     public static boolean hasPermission(final @NonNull PermissionHolder caller, final @NonNull Permission permission) {
-        return caller.hasPermission(permission.toString());
+        return plotSquaredHandler.hasTFMPermission(caller, permission.toString());
     }
 
     /**
@@ -63,7 +66,7 @@ public class Permissions {
      * @return {@code true} if the owner has the given permission, else {@code false}
      */
     public static boolean hasPermission(final @NonNull PermissionHolder caller, final @NonNull String permission) {
-        return caller.hasPermission(permission);
+        return plotSquaredHandler.hasTFMPermission(caller, permission);
     }
 
     /**
@@ -80,7 +83,7 @@ public class Permissions {
             final @NonNull PermissionHolder caller, final @NonNull String permission,
             final @NonNull String key
     ) {
-        return caller.hasKeyedPermission(permission, key);
+        return plotSquaredHandler.hasTFMPermission(caller, String.format("%s.%s", permission, key)) || plotSquaredHandler.hasTFMPermission(caller, permission + ".*");
     }
 
     /**
